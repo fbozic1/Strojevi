@@ -4,10 +4,10 @@ using System;
 
 namespace Strojevi.Models
 {
-    public class Strojevi
+    public class GetStrojevi
     {
         public int strojeviid { get; set; }
 
-        public string naziv { get; set; }
+        public string? naziv { get; set; }
     }
 }
