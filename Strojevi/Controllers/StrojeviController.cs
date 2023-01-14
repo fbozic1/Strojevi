@@ -56,6 +56,36 @@ namespace Strojevi.Controllers
         }
         #endregion
 
+        #region Put
+        /// <summary>
+        /// Ažuriranje strojeva
+        /// </summary>
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(string), 404)]
+
+        public async Task<ActionResult<IEnumerable<GetStrojevi>>> Put([FromServices] IStrojeviData data, StrojeviPut put)
+        {
+            try
+            {
+                if (put.naziv == "string")
+                {
+                    return BadRequest("Unesna vrijednost je nevažeća, unesite važeći naziv stroja");
+                }
+
+                var strojevi = await data.UpdateStrojevi(put);
+                return Ok(strojevi);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        #endregion
+
         #region Delete
         /// <summary>
         /// Brisanje strojeva
@@ -81,5 +111,6 @@ namespace Strojevi.Controllers
         }
         #endregion
 
+      
     }
 }

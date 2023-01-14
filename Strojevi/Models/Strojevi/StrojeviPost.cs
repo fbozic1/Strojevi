@@ -6,7 +6,6 @@ namespace Strojevi.Models
 {
     public class StrojeviPost
     {
-
         public string naziv { get; set; }
     }
 }

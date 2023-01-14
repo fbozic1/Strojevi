@@ -24,6 +24,8 @@ var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<IStrojeviData, StrojeviData>();
+builder.Services.AddTransient<IKvaroviData, KvaroviData>();
+
 
 var app = builder.Build();
 

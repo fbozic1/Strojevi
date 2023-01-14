@@ -4,10 +4,9 @@ using System;
 
 namespace Strojevi.Models
 {
-    public class GetStrojevi
+    public class StrojeviPut
     {
-        public int? strojeviid { get; set; }
-
-        public string? naziv { get; set; }
+        public int id { get; set; }
+        public string naziv { get; set; }
     }
 }

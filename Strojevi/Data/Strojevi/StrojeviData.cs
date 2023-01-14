@@ -52,6 +52,26 @@ namespace Strojevi.Data;
 
     }
 
+    public Task<IEnumerable<GetStrojevi>> UpdateStrojevi(StrojeviPut put)
+    {
+        var builder = new SqlBuilder();
+        var parameters = new DynamicParameters();
+        var naziv = put.naziv;
+        var id = put.id;
+
+        var selector = builder.AddTemplate("UPDATE Strojevi SET naziv=@naziv WHERE strojeviid=@id");
+
+
+        parameters.Add("@naziv", naziv);
+        parameters.Add("@id", id);
+
+
+        var strojeviUpdate = _db.LoadDataQuery<GetStrojevi, dynamic>(selector.RawSql, parameters);
+
+        return strojeviUpdate;
+
+    }
+
 
     public Task<IEnumerable<GetStrojevi>> DeleteStrojevi(int id)
         {

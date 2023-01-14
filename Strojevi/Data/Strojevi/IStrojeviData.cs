@@ -10,6 +10,9 @@ namespace Strojevi.Data
 
         Task<IEnumerable<GetStrojevi>> InsertStrojevi(StrojeviPost post);
 
+        Task<IEnumerable<GetStrojevi>> UpdateStrojevi(StrojeviPut put);
+
+
 
     }
 }
