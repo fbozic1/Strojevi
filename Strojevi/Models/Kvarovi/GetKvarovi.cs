@@ -9,7 +9,7 @@ namespace Strojevi.Models
     {
         public int? kvaroviid { get; set; }
 
-        public string? imestroja { get; set; }
+        public string? nazivstroja { get; set; }
 
         public string? nazivkvara { get;set; }
 

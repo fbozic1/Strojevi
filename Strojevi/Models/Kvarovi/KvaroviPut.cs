@@ -5,27 +5,27 @@ using System.ComponentModel;
 
 namespace Strojevi.Models
 {
-    public class KvaroviPost
+    public class KvaroviPut
     {
+        [Required]
+        public int kvaroviid { get; set; }
+
         [DefaultValue(null)]
-        public string nazivstroja { get; set; }
+        public string? nazivstroja { get; set; }
 
         [DefaultValue(null)]
         public string? nazivkvara { get; set; }
 
         [DefaultValue("nizak")]
-        public string prioritet { get; set; }
+        public string? prioritet { get; set; }
 
-        public DateTime datumpocetka { get; set; }
+        public DateTime? datumpocetka { get; set; }
 
         [DefaultValue(null)]
         public DateTime? datumzavrsetka { get; set; }
 
         [DefaultValue(null)]
-        public string opiskvara { get; set; }
-
-        [DefaultValue("ne")]
-        public string? statuskvara { get; set; }
+        public string? opiskvara { get; set; }
 
     }
 }
