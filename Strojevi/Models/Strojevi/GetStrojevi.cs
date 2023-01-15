@@ -6,8 +6,36 @@ namespace Strojevi.Models
 {
     public class GetStrojevi
     {
-        public int? strojeviid { get; set; }
+        public int strojeviid { get; set; }
 
         public string? naziv { get; set; }
+
+        public List<KvaroviTest> Kvarovi { get; set; }
+
+        public int ProsjecnoTrajanjeKvarova { get; set; }
+
+    }
+
+    public class KvaroviTest
+    {
+        public int? kvaroviid { get; set; }
+
+        public string? nazivstroja { get; set; }
+
+        public string? nazivkvara { get; set; }
+
+        public string? prioritet { get; set; }
+
+        public DateTime? datumpocetka { get; set; }
+
+        public DateTime? datumzavrsetka { get; set; }
+
+        public string? opiskvara { get; set; }
+
+        public int ProsjecnoTrajanjeKvarova { get; set; }
+
+        public string? statuskvara { get; set; }
+
+
     }
 }

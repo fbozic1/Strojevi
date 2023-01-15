@@ -64,6 +64,14 @@ namespace Strojevi.Controllers
 
         public async Task<ActionResult<IEnumerable<GetKvarovi>>> Post([FromServices] IKvaroviData data, KvaroviPost post)
         {
+            DateTime datumPocetka = post.datumpocetka;
+            DateTime? datumZavrsetka = post.datumzavrsetka;
+
+            if (datumZavrsetka < datumPocetka)
+            {
+                throw new Exception("Datum završetka ne može biti manji od datuma početka !");
+            }
+
             try
             {
                 

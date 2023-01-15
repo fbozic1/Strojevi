@@ -18,22 +18,22 @@ namespace Strojevi.Data;
             _db = db;
         }
 
-        public Task<IEnumerable<GetStrojevi>> GetStrojevi(int? id, string? naziv) 
-        {
-            var builder = new SqlBuilder();
+        //public Task<IEnumerable<GetStrojevi>> GetStrojevi(int? id, string? naziv) 
+        //{
+        //    var builder = new SqlBuilder();
 
-            var selector = builder.AddTemplate("SELECT * FROM Strojevi /**where**/");
+        //    var selector = builder.AddTemplate("SELECT * FROM Strojevi /**where**/");
             
-            if(!string.IsNullOrEmpty(naziv)) 
-            builder.Where("naziv=@naziv", new { naziv });
+        //    if(!string.IsNullOrEmpty(naziv)) 
+        //    builder.Where("naziv=@naziv", new { naziv });
 
-            if(id!=null)
-            builder.Where("strojeviid=@id", new { id });
+        //    if(id!=null)
+        //    builder.Where("strojeviid=@id", new { id });
 
-            var strojevi = _db.LoadDataQuery<GetStrojevi, dynamic>(selector.RawSql, selector.Parameters);
-            return strojevi;
+        //    var strojevi = _db.LoadDataQuery<GetStrojevi, dynamic>(selector.RawSql, selector.Parameters);
+        //    return strojevi;
 
-        }
+        //}
 
     public Task<IEnumerable<GetStrojevi>> InsertStrojevi(StrojeviPost post)
     {

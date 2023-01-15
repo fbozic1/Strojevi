@@ -23,14 +23,14 @@ namespace Strojevi.Data
             _db = db;
         }
 
-        public Task<IEnumerable<GetKvarovi>> GetKvarovi(int? id, string? imestroja)
+        public Task<IEnumerable<GetKvarovi>> GetKvarovi(int? id, string? nazivstroja)
         {
             var builder = new SqlBuilder();
 
             var selector = builder.AddTemplate("SELECT * FROM Kvarovi /**where**/");
 
-            if (!string.IsNullOrEmpty(imestroja))
-                builder.Where("imestroja=@imestroja", new { imestroja });
+            if (!string.IsNullOrEmpty(nazivstroja))
+                builder.Where("nazivstroja=@nazivstroja", new { nazivstroja });
 
             if (id != null)
                 builder.Where("kvaroviid=@id", new { id });

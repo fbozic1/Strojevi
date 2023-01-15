@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
+using Npgsql;
 using Strojevi.Data;
 using Strojevi.Models;
+using System.Data;
+using System.Data.SqlClient;
 using System.Net;
+using System.Xml.Linq;
 
 
 namespace Strojevi.Controllers
@@ -15,14 +20,45 @@ namespace Strojevi.Controllers
         /// <summary>
         /// Dohvati strojeve
         /// </summary>
-        [HttpGet]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(typeof(string), 404)]
-
-        public async Task<ActionResult<IEnumerable<GetStrojevi>>> Get([FromServices] IStrojeviData data, [FromQuery] int? id, [FromQuery] string? naziv)
+         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get([FromServices] IConfiguration config, int id)
         {
-            var strojevi = await data.GetStrojevi(id, naziv);
-            return Ok(strojevi);
+            using IDbConnection connection = new NpgsqlConnection(config.GetConnectionString("Default"));
+
+            var strojeviDictionary = new Dictionary<int, GetStrojevi>();
+
+            string sql = "SELECT strojevi.strojeviid,strojevi.naziv,kvarovi.kvaroviid, kvarovi.nazivkvara, kvarovi.prioritet,  kvarovi.opiskvara, kvarovi.statuskvara,  AVG(DATE_PART('day', kvarovi.datumzavrsetka::timestamp - kvarovi.datumpocetka::timestamp)) as ProsjecnoTrajanjeKvarova " +
+                "FROM kvarovi INNER JOIN strojevi ON strojevi.naziv = kvarovi.nazivstroja WHERE (strojevi.strojeviid = @id OR @id = 0)  " +
+                " GROUP BY strojevi.strojeviid,  strojevi.naziv, kvarovi.kvaroviid, kvarovi.nazivkvara,kvarovi.prioritet,  kvarovi.opiskvara, kvarovi.statuskvara,  kvarovi.datumpocetka";
+
+
+            var list = connection.Query<GetStrojevi, KvaroviTest, GetStrojevi>(
+                sql,
+                (stroj, kvar) =>
+                {
+                    
+                    GetStrojevi strojEntry;
+
+                    if (!strojeviDictionary.TryGetValue(stroj.strojeviid, out strojEntry))
+                    {
+                        strojEntry = stroj;
+                        strojEntry.Kvarovi = new List<KvaroviTest>();
+                        strojeviDictionary.Add(strojEntry.strojeviid, strojEntry);
+                    }
+         
+                    strojEntry.Kvarovi.Add(kvar);
+                    return strojEntry;
+                },
+                new { id = id },
+                splitOn: "kvaroviid")
+            .Distinct()
+            .ToList();
+
+            
+
+            return Ok(list);
         }
         #endregion
 
