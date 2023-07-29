@@ -18,7 +18,6 @@ namespace Strojevi.Models
         public DateTime? datumpocetka { get;set; }
 
         public DateTime? datumzavrsetka { get; set; }
-
         public string? opiskvara { get;set; }
         public string? statuskvara { get; set; }
 

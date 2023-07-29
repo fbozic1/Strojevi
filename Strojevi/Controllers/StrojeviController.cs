@@ -30,7 +30,7 @@ namespace Strojevi.Controllers
             var strojeviDictionary = new Dictionary<int, GetStrojevi>();
 
             string sql = "SELECT strojevi.strojeviid,strojevi.naziv,kvarovi.kvaroviid, kvarovi.nazivkvara, kvarovi.prioritet,  kvarovi.opiskvara, kvarovi.statuskvara,  AVG(DATE_PART('day', kvarovi.datumzavrsetka::timestamp - kvarovi.datumpocetka::timestamp)) as ProsjecnoTrajanjeKvarova " +
-                "FROM kvarovi INNER JOIN strojevi ON strojevi.naziv = kvarovi.nazivstroja WHERE (strojevi.strojeviid = @id OR @id = 0)  " +
+                " FROM kvarovi INNER JOIN strojevi ON strojevi.naziv = kvarovi.nazivstroja WHERE (strojevi.strojeviid = @id OR @id = 0) " +
                 " GROUP BY strojevi.strojeviid,  strojevi.naziv, kvarovi.kvaroviid, kvarovi.nazivkvara,kvarovi.prioritet,  kvarovi.opiskvara, kvarovi.statuskvara,  kvarovi.datumpocetka";
 
 
@@ -51,7 +51,7 @@ namespace Strojevi.Controllers
                     strojEntry.Kvarovi.Add(kvar);
                     return strojEntry;
                 },
-                new { id = id },
+                new { id = id},
                 splitOn: "kvaroviid")
             .Distinct()
             .ToList();

@@ -11,6 +11,8 @@ namespace Strojevi.Controllers
     [ApiController]
     public class KvaroviController : ControllerBase
     {
+  
+
         #region Get
         /// <summary>
         /// Dohvati kvarove

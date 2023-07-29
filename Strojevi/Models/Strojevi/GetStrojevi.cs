@@ -12,7 +12,7 @@ namespace Strojevi.Models
 
         public List<KvaroviTest> Kvarovi { get; set; }
 
-        public int ProsjecnoTrajanjeKvarova { get; set; }
+        public double ProsjecnoTrajanjeKvarova { get; set; }
 
     }
 
@@ -32,7 +32,7 @@ namespace Strojevi.Models
 
         public string? opiskvara { get; set; }
 
-        public int ProsjecnoTrajanjeKvarova { get; set; }
+        public double ProsjecnoTrajanjeKvarova { get; set; }
 
         public string? statuskvara { get; set; }
 
